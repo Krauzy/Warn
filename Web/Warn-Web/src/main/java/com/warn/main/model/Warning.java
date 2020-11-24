@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
@@ -21,14 +22,35 @@ public class Warning {
 	private Organ organ;
 	private Problem type;
 	private BufferedImage photo;
-	private Date date;
+	private LocalDate date;
 	private String street;
 	private String district;
 	private int number;
 	private String cep;
 	private String city;
 	private String state;
+	private String adress;
 
+	public Warning(String title, String description, int level, User user, Organ organ, Problem type,
+			String street, String district, int number, String cep, String city, String state) {
+		this.id = -1;
+		this.title = title;
+		this.description = description;
+		this.level = level;
+		this.user = user;
+		this.organ = organ;
+		this.type = type;
+		this.street = street;
+		this.district = district;
+		this.number = number;
+		this.cep = cep;
+		this.city = city;
+		this.state = state;
+		this.date = LocalDate.now();
+		this.photo = null;
+		this.adress = this.street + ", " + this.number + ", " + this.district + " | " + this.city + "(" + this.state + ")";
+	}
+	
 	public Warning(int id, String title, String description, int level, User user, Organ organ, Problem type,
 			String street, String district, int number, String cep, String city, String state) {
 		this.id = id;
@@ -44,8 +66,29 @@ public class Warning {
 		this.cep = cep;
 		this.city = city;
 		this.state = state;
-		this.date = Date.from(Instant.now());
+		this.date = LocalDate.now();
 		this.photo = null;
+		this.adress = this.street + ", " + this.number + ", " + this.district + " | " + this.city + "(" + this.state + ")";
+	}
+	
+	public Warning(int id, String title, String description, int level, User user, Organ organ, Problem type,
+			String street, String district, int number, String cep, String city, String state, LocalDate date) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.level = level;
+		this.user = user;
+		this.organ = organ;
+		this.type = type;
+		this.street = street;
+		this.district = district;
+		this.number = number;
+		this.cep = cep;
+		this.city = city;
+		this.state = state;
+		this.date = date;
+		this.photo = null;
+		this.adress = this.street + ", " + this.number + ", " + this.district + " | " + this.city + "(" + this.state + ")";
 	}
 	
 	public Warning() {
@@ -58,6 +101,14 @@ public class Warning {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	
+	public String getAdress() {
+		return this.adress;
 	}
 	
 	public String getTitle() {
@@ -116,11 +167,11 @@ public class Warning {
 		this.photo = photo;
 	}
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	

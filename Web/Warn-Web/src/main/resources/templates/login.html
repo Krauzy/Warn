@@ -1,201 +1,659 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Warn - Ativo e Operante</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
-		<style>
-			.flex {
-				display: flex;
-				flex-wrap: wrap;
-				width: 100%;
-				margin: 0 auto;
-				justify-content: center;
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.min.css"/>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css"/>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0px; 
+			padding: 0px; 
+			box-sizing: border-box;
+		}
+
+		body, html {
+			height: 100%;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		/*---------------------------------------------*/
+		a {
+			font-family: 'Poppins';
+			font-size: 14px;
+			line-height: 1.7;
+			color: #666666;
+			margin: 0px;
+			transition: all 0.4s;
+			-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		}
+
+		a:focus {
+			outline: none !important;
+		}
+
+		a:hover {
+			text-decoration: none;
+		color: #fff;
+		}
+
+		/*---------------------------------------------*/
+		h1,h2,h3,h4,h5,h6 {
+			margin: 0px;
+		}
+
+		p {
+			font-family: 'Poppins';
+			font-size: 14px;
+			line-height: 1.7;
+			color: #666666;
+			margin: 0px;
+		}
+
+		ul, li {
+			margin: 0px;
+			list-style-type: none;
+		}
+
+
+		/*---------------------------------------------*/
+		input {
+			outline: none;
+			border: none;
+		}
+
+		textarea {
+		outline: none;
+		border: none;
+		}
+
+		textarea:focus, input:focus {
+			border-color: transparent !important;
+		}
+
+		input:focus::-webkit-input-placeholder { color:transparent; }
+		input:focus:-moz-placeholder { color:transparent; }
+		input:focus::-moz-placeholder { color:transparent; }
+		input:focus:-ms-input-placeholder { color:transparent; }
+
+		textarea:focus::-webkit-input-placeholder { color:transparent; }
+		textarea:focus:-moz-placeholder { color:transparent; }
+		textarea:focus::-moz-placeholder { color:transparent; }
+		textarea:focus:-ms-input-placeholder { color:transparent; }
+
+		input::-webkit-input-placeholder { color: #fff;}
+		input:-moz-placeholder { color: #fff;}
+		input::-moz-placeholder { color: #fff;}
+		input:-ms-input-placeholder { color: #fff;}
+
+		textarea::-webkit-input-placeholder { color: #fff;}
+		textarea:-moz-placeholder { color: #fff;}
+		textarea::-moz-placeholder { color: #fff;}
+		textarea:-ms-input-placeholder { color: #fff;}
+
+		label {
+			margin: 0;
+			display: block;
+		}
+
+		/*---------------------------------------------*/
+		button {
+			outline: none !important;
+			border: none;
+			background: transparent;
+		}
+
+		button:hover {
+			cursor: pointer;
+		}
+
+		iframe {
+			border: none !important;
+		}
+
+		.txt1 {
+		font-family: 'Poppins';
+		font-size: 13px;
+		color: #e5e5e5;
+		line-height: 1.5;
+		}
+
+
+		/*//////////////////////////////////////////////////////////////////
+		[ login ]*/
+
+		.limiter {
+		width: 100%;
+		margin: 0 auto;
+		}
+
+		.container-login100 {
+		width: 100%;  
+		min-height: 100vh;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		padding: 15px;
+
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		position: relative;
+		z-index: 1;  
+		}
+
+		.container-login100::before {
+		content: "";
+		display: block;
+		position: absolute;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba(255,255,255,0.9);
+		}
+
+		.wrap-login100 {
+		width: 500px;
+		border-radius: 10px;
+		overflow: hidden;
+		padding: 55px 55px 37px 55px;
+
+		background: white;
+		background: -webkit-linear-gradient(top, #960019, #960019);
+		background: -o-linear-gradient(top, #960019, #960019);
+		background: -moz-linear-gradient(top, #960019, #960019);
+		background: linear-gradient(top, #960019, #960019);
+		}
+
+
+		/*------------------------------------------------------------------
+		[ Form ]*/
+
+		.login100-form {
+		width: 100%;
+		}
+
+		.login100-form-logo {
+		font-size: 60px; 
+		color: #333333;
+
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 120px;
+		height: 120px;
+		border-radius: 50%;
+		background-color: #fff;
+		margin: 0 auto;
+		}
+
+		.login100-form-title {
+		font-family: 'Poppins';
+		font-size: 30px;
+		color: #fff;
+		line-height: 1.2;
+		text-align: center;
+		text-transform: uppercase;
+
+		display: block;
+		}
+
+
+		/*------------------------------------------------------------------
+		[ Input ]*/
+
+		.wrap-input100 {
+		width: 100%;
+		position: relative;
+		border-bottom: 2px solid rgba(255,255,255,0.24);
+		margin-bottom: 30px;
+		}
+
+		.input100 {
+		font-family: 'Poppins';
+		font-size: 16px;
+		color: #fff;
+		line-height: 1.2;
+
+		display: block;
+		width: 100%;
+		height: 45px;
+		background: transparent;
+		padding: 0 5px 0 38px;
+		}
+
+		/*---------------------------------------------*/ 
+		.focus-input100 {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+		}
+
+		.focus-input100::before {
+		content: "";
+		display: block;
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 0;
+		height: 2px;
+
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+
+		background: #fff;
+		}
+
+		.focus-input100::after {
+		font-family: Material-Design-Iconic-Font;
+		font-size: 22px;
+		color: #fff;
+
+		content: attr(data-placeholder);
+		display: block;
+		width: 100%;
+		position: absolute;
+		top: 6px;
+		left: 0px;
+		padding-left: 5px;
+
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+		}
+
+		.input100:focus {
+		padding-left: 5px;
+		}
+
+		.input100:focus + .focus-input100::after {
+		top: -22px;
+		font-size: 18px;
+		}
+
+		.input100:focus + .focus-input100::before {
+		width: 100%;
+		}
+
+		.has-val.input100 + .focus-input100::after {
+		top: -22px;
+		font-size: 18px;
+		}
+
+		.has-val.input100 + .focus-input100::before {
+		width: 100%;
+		}
+
+		.has-val.input100 {
+		padding-left: 5px;
+		}
+
+
+		/*==================================================================
+		[ Restyle Checkbox ]*/
+
+		.contact100-form-checkbox {
+		padding-left: 5px;
+		padding-top: 5px;
+		padding-bottom: 35px;
+		}
+
+		.input-checkbox100 {
+		display: none;
+		}
+
+		.label-checkbox100 {
+		font-family: 'Poppins';
+		font-size: 13px;
+		color: #fff;
+		line-height: 1.2;
+
+		display: block;
+		position: relative;
+		padding-left: 26px;
+		cursor: pointer;
+		}
+
+		.label-checkbox100::before {
+		content: "\f26b";
+		font-family: Material-Design-Iconic-Font;
+		font-size: 13px;
+		color: transparent;
+
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		border-radius: 2px;
+		background: #fff;
+		left: 0;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		transform: translateY(-50%);
+		}
+
+		.input-checkbox100:checked + .label-checkbox100::before {
+		color: #555555;
+		}
+
+
+		/*------------------------------------------------------------------
+		[ Button ]*/
+		.container-login100-form-btn {
+		width: 100%;
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		}
+
+		.login100-form-btn {
+		font-family: 'Poppins';
+		font-size: 16px;
+		color: #555555;
+		line-height: 1.2;
+
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0 20px;
+		min-width: 120px;
+		height: 50px;
+		border-radius: 25px;
+
+		background: white;
+		background: -webkit-linear-gradient(bottom, #B8001F, #B8001F);
+		background: -o-linear-gradient(bottom, #B8001F, #B8001F);
+		background: -moz-linear-gradient(bottom, #B8001F,#B8001F);
+		background: linear-gradient(bottom, #B8001F,#B8001F);
+		position: relative;
+		z-index: 1;
+
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+		}
+
+		.login100-form-btn::before {
+		content: "";
+		display: block;
+		position: absolute;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		border-radius: 25px;
+		background-color: #fff;
+		top: 0;
+		left: 0;
+		opacity: 1;
+
+		-webkit-transition: all 0.4s;
+		-o-transition: all 0.4s;
+		-moz-transition: all 0.4s;
+		transition: all 0.4s;
+		}
+
+		.login100-form-btn:hover {
+		color: #fff;
+		}
+
+		.login100-form-btn:hover:before {
+		opacity: 0;
+		}
+
+
+		/*------------------------------------------------------------------
+		[ Responsive ]*/
+
+		@media (max-width: 576px) {
+		.wrap-login100 {
+			padding: 55px 15px 37px 15px;
+		}
+		}
+
+
+
+		/*------------------------------------------------------------------
+		[ Alert validate ]*/
+
+		.validate-input {
+		position: relative;
+		}
+
+		.alert-validate::before {
+		content: attr(data-validate);
+		position: absolute;
+		max-width: 70%;
+		background-color: #fff;
+		border: 1px solid #c80000;
+		border-radius: 2px;
+		padding: 4px 25px 4px 10px;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		transform: translateY(-50%);
+		right: 0px;
+		pointer-events: none;
+
+		font-family: 'Poppins';
+		color: #c80000;
+		font-size: 13px;
+		line-height: 1.4;
+		text-align: left;
+
+		visibility: hidden;
+		opacity: 0;
+
+		-webkit-transition: opacity 0.4s;
+		-o-transition: opacity 0.4s;
+		-moz-transition: opacity 0.4s;
+		transition: opacity 0.4s;
+		}
+
+		.alert-validate::after {
+		content: "\f12a";
+		font-family: FontAwesome;
+		font-size: 16px;
+		color: #c80000;
+
+		display: block;
+		position: absolute;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		transform: translateY(-50%);
+		right: 5px;
+		}
+
+		.alert-validate:hover:before {
+		visibility: visible;
+		opacity: 1;
+		}
+
+		@media (max-width: 992px) {
+			.alert-validate::before {
+				visibility: visible;
+				opacity: 1;
 			}
-			.formflex {
-				margin: 0 auto;
-				justify-content: center;
-			}
-			.nav-link:hover {
-				text-decoration: underline;
-			}
-			.box {
-				border: 1px solid #ed1c24;
-				display: inline-flex;
-				width: 70%;
-				border-radius: 10px;
-				font-family: 'Montserrat', sans-serif;
-				font-size: 85%;
-			}
-			.vl {
-				border-left: 1px solid #ed1c24;
-				height: 95%;
-				margin-top: 2%;
-			}
-		</style>
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ed1c24;font-family: 'Montserrat', sans-serif;">
-			<a class="navbar-brand" href="#">
-				<img src="https://i.ibb.co/Bs6h7Zj/logo.png" style="height: 30px; width: 40px;" alt="logo"/>
-			</a>
-			<button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			  <ul class="navbar-nav">
-				<li class="nav-item active">
-				  <a class="nav-link" href="/" style="color: white">Home<span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/more" style="color: white">Saiba Mais</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/warning" style="color: white">Efetuar Denúncia</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/admin" style="color: white">Admin</a>
-				</li>
-			  </ul>  	
+		}
+
+		
+		.p-t-20 {padding-top: 20px;}		
+		.p-t-90 {padding-top: 90px;}
+		.p-b-30 {padding-bottom: 30px;}
+		.text-center {text-align: center;}
+		
+	</style>
+</head>
+<body >
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('https://i.ibb.co/7nKyRfh/bg-01.jpg');">
+			<div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert" style="opacity: 90%; width: 70%;margin: 0 auto; justify-content: center;margin-bottom: 1.5em;position: fixed;top: 1.5em;">
+				<strong>Erro:</strong> Não foi possível efetuar login!
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			<div class="navbar-nav flex-row d-lg-flex justify-content-end">
-				<a class="nav-link" href="/login" style="color:white">Login</a>
-			</div>
-		  </nav>
-		<main class="pt-4 flex" style="margin-bottom: 1.5em;">
-			<div class="box flex">
-				<form class="formflex" method="POST" action="/login">
-					<h3 style="font-family: 'Inter', sans-serif;text-align: center;color: #ed1c24;margin-top: 1.1em;margin-bottom: 0.5em;">ENTRAR</h3>
-					<div class="form-group">
-						<label for="InputEmail">Email</label>
-						<input type="email" class="form-control" name="lemail" id="InputEmail" aria-describedby="emailHelp" placeholder="Digite seu email">
+			<div class="wrap-login100" style="height: 80%;">
+				<form class="login100-form validate-form" method="POST" action="/login">
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-account"></i>
+					</span>
+					<span class="login100-form-title p-b-30 p-t-20">Log in</span>
+					<div class="wrap-input100 validate-input" data-validate = "Digite seu email">
+						<input class="input100" type="text" name="email" placeholder="Email">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
-					<div class="form-group">
-						<label for="InputPass">Senha</label>
-						<input type="password" class="form-control" name="lpass" id="InputPass" placeholder="Digite sua senha">
+
+					<div class="wrap-input100 validate-input" data-validate="Digite sua senha">
+						<input class="input100" type="password" name="pass" placeholder="Senha">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="lcheck" id="InputCheck">
-						<label class="form-check-label" for="InputCheck">Mantenha-me conectado</label>
+
+					<div class="contact100-form-checkbox">
+						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember" checked>
+						<label class="label-checkbox100" for="ckb1">Lembrar-me</label>
 					</div>
-					<button type="submit" class="btn btn-danger" style="margin-top: 1.1em;background-color: #ed1c24;">Entrar</button>
+
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">Entrar</button>
+					</div>
+
+					<div class="text-center p-t-90">
+						<a class="txt1" href="#">Esqueci minha senha?</a>
+					</div>
 				</form>
-				<div class="vl"></div>
-				<form class="formflex" method="POST" action="/register">
-					<h3 style="font-family: 'Inter', sans-serif;text-align: center;color: #ed1c24;margin-top: 1.1em;margin-bottom: 0.5em;">REGISTRAR</h3>
-					<div class="form-group">
-						<label for="InputName">Nome</label>
-						<input type="text" class="form-control" name="rname" id="InputName" placeholder="Digite seu primeiro nome">
-					</div>
-					<div class="form-group">
-						<label for="InputLastName">Sobrenome</label>
-						<input type="text" class="form-control" name="rlast" id="InputLastName" placeholder="Digite seu sobrenome">
-					</div>
-					<div class="form-group">
-						<label for="InputCPF">CPF</label>
-						<input type="text" class="form-control" name="rcpf" aria-describedby="cpfHelp" id="InputCPF" placeholder="000.000.000-00">
-						<small id="cpfHelp" class="form-text text-muted">Seu CPF não será revelado para ninguém.</small>
-					</div>
-					<div class="form-group">
-						<label for="InputDate">Data de Nascimento</label>
-						<input type="date" class="form-control" name="rcpf" id="InputDate">
-					</div>
-					<div class="form-group">
-						<label for="InputEmail">Email</label>
-						<input type="email" class="form-control" name="remail" id="InputEmail" aria-describedby="emailHelp" placeholder="Digite seu email">
-						<small id="emailHelp" class="form-text text-muted">Seu email não será revelado para ninguém.</small>
-					</div>
-					<div class="form-group">
-						<label for="InputPass">Senha</label>
-						<input type="password" class="form-control" name="rpass" id="InputPass" aria-describedby="passHelp" placeholder="Digite sua senha">
-						<small id="passHelp" class="form-text text-muted">Deve ter entre 8 e 16 caractéres, uma letra maiúscula, minúscula e um número.</small>
-					</div>
-					<div class="form-group">
-						<label for="InputSecondPass">Confirmar Senha</label>
-						<input type="password" class="form-control" name="rsecondpass" id="InputSecondPass" placeholder="Digite sua senha novamente">
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="rcheckconditions" id="checkConditions">
-						<label class="form-check-label" for="checkConditions">Concordo com os <a href="/conditions" target="_blank">Termos e condições de uso</a></label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="rcheckprivacy" id="checkPrivacy">
-						<label class="form-check-label" for="checkPrivacy">Concordo com a <a href="/privacy" target="_blank">Política de Privacidade</a></label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" name="rchecknews" id="checkNews">
-						<label class="form-check-label" for="checkNews">Mantenha-me informado sobre novidades</label>
-					</div>
-					<button type="submit" class="btn btn-danger" style="margin-top: 1.1em;margin-bottom: 1.1em;background-color: #ed1c24;">Registrar</button>
-				</form>
-			</div> <!--box-->
-		</main>
-		<footer class="page-footer font-small blue pt-4" style="background-color: #ed1c24; bottom:0">
-			<div class="container-fluid text-center text-md-left">
-				<div class="row">
-					<div class="col-md-6 mt-md-0 mt-3">
-						<div style="display: inline-flex;">
-							<a class="navbar-brand" href="/">
-								<img src="https://i.ibb.co/Bs6h7Zj/logo.png" style="height: 30px; width: 40px;" alt="logo"/>
-							</a>
-							<h5 style="color: white;margin-top: 0.5em;">WARN - Ativo e Operante</h5>
-						</div>
-						<p class="pt-4" style="color: white; font-family: 'Montserrat', sans-serif;">A Warn foi criada com o intuíto de ajudar o cidadão a manter-se satisfeito com o local onde vive, dando a ele uma ferramenta para avisar autoridades maiores sobre problemas na cidade. 
-							<a href="/more" style="color: #303030">Saiba Mais</a>
-						</p>
-						<a href="https://play.google.com/store?hl=pt_BR&gl=US" target="_blank"><img src="https://i.ibb.co/YfDdDpT/playstore.png" alt="playstore"/></a>
-						<a href="https://www.apple.com/br/ios/app-store/" target="_blank"><img src="https://i.ibb.co/KqwBLc9/appstore.png" alt="appstore"/></a>
-					</div>
-					<hr class="clearfix w-100 d-md-none pb-3">
-					<div class="col-md-3 mb-md-0 mb-3">
-						<h5 class="text-uppercase text-center" style="color:white">Páginas</h5>
-						<ul class="list-unstyled text-center" style="font-family: 'Montserrat', sans-serif;">
-							<li>
-								<a href="/" style="color: #303030;">Home</a>
-							</li>
-							<li>
-								<a href="/more" style="color: #303030;">Saiba Mais</a>
-							</li>
-							<li>
-								<a href="/warning" style="color: #303030;">Efetuar Denúncia</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-3 mb-md-0 mb-3">
-						<h5 class="text-uppercase text-center" style="color: white;">Links</h5>
-						<ul class="list-unstyled text-center" style="font-family: 'Montserrat', sans-serif;">
-							<li>
-								<a href="/problem" style="color: #303030;">Relatar Problema</a>
-							</li>
-							<li>
-								<a href="/privacy" style="color: #303030;">Política de Privacidade</a>
-							</li>
-							<li>
-								<a href="/conditions" style="color: #303030;">Termos e Condições de Uso</a>
-							</li>
-							<li>
-								<a href="/answer" style="color: #303030;">Perguntas Frequentes</a>
-							</li>
-							<li>
-								<a href="/talk" style="color: #303030;">Fale Conosco</a>
-							</li>
-						</ul>  
-					</div>
-				</div>
 			</div>
-			<div class="footer-copyright text-center" style="color: white;">© 2020 Copyright</div>
-		</footer>
-		<script>
-			$(document).ready(function(){
-				$("#InputCPF").mask('000.000.000-00');
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+	<script>		
+		(function ($) {
+			"use strict";
+			/*==================================================================
+			[ Focus input ]*/
+			$('.input100').each(function(){
+				$(this).on('blur', function(){
+					if($(this).val().trim() != "") {
+						$(this).addClass('has-val');
+					}
+					else {
+						$(this).removeClass('has-val');
+					}
+				})    
+			})		
+			/*==================================================================
+			[ Validate ]*/
+			var input = $('.validate-input .input100');
+			$('.validate-form').on('submit',function(){
+				var check = true;
+				for(var i=0; i<input.length; i++) {
+					if(validate(input[i]) == false){
+						showValidate(input[i]);
+						check=false;
+					}
+				}
+				return check;
 			});
-		</script>
-	</body>
-</html> 
+			$('.validate-form .input100').each(function(){
+				$(this).focus(function(){
+				hideValidate(this);
+				});
+			});
+			function validate (input) {
+				if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+					if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+						return false;
+					}
+				}
+				else {
+					if($(input).val().trim() == ''){
+						return false;
+					}
+				}
+			}
+			function showValidate(input) {
+				var thisAlert = $(input).parent();
+				$(thisAlert).addClass('alert-validate');
+			}
+			function hideValidate(input) {
+				var thisAlert = $(input).parent();
+				$(thisAlert).removeClass('alert-validate');
+			}			
+			/*==================================================================
+			[ Show pass ]*/
+			var showPass = 0;
+			$('.btn-show-pass').on('click', function(){
+				if(showPass == 0) {
+					$(this).next('input').attr('type','text');
+					$(this).addClass('active');
+					showPass = 1;
+				}
+				else {
+					$(this).next('input').attr('type','password');
+					$(this).removeClass('active');
+					showPass = 0;
+				}				
+			});
+		})(jQuery);
+	</script>
+</body>
+</html>

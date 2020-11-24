@@ -5,32 +5,35 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.TimeUnit;
 
 public class Database {
 	private Connection connect;
 	private String error = "";
-	/*private static Database instance;
+	private static Database instance;
 	
 	public static Database getInstance() {
 		if(instance == null)
 			instance = new Database();
 		return instance;
-	}*/
+	}
 	
 	public Database(String driver, String local, String base, String user, String pass) {
-		try {
-			Class.forName(driver);
-			String URL = local + base;
-			connect = DriverManager.getConnection(URL, user, pass);
-		}
-		catch(ClassNotFoundException cnfe) {
-			error = "Failed to read JDBC Driver: " + cnfe.getMessage();
-		}
-		catch(SQLException sqle) {
-			error = "Failed to connect in database: " + sqle.getMessage();
-		}
-		catch(Exception e) {
-			error = "Error: " + e.getMessage();
+		while(connect == null) {
+			try {
+				Class.forName(driver);
+				String URL = local + base;
+				connect = DriverManager.getConnection(URL, user, pass);
+			}
+			catch(ClassNotFoundException cnfe) {
+				error = "Failed to read JDBC Driver: " + cnfe.getMessage();
+			}
+			catch(SQLException sqle) {
+				error = "Failed to connect in database: " + sqle.getMessage();
+			}
+			catch(Exception e) {
+				error = "Error: " + e.getMessage();
+			}
 		}
 	}
 	
@@ -55,7 +58,7 @@ public class Database {
             Statement statement = connect.createStatement();
             int result = statement.executeUpdate(SQL);
             statement.close();
-            if (result >= 1)
+            if (result >= 0)
                 return true;
         } 
     	catch (SQLException sqle) {

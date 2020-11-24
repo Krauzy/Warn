@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <style>
+        .back-red {
+            background-color: #960019;
+            color: white;
+        }
+        .txt-red {
+            color: #960019 !important;
+        }
+        label{
+            color: #960019;
+        }
+        h5 {
+            color: #960019;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar back-red sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard/organs">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-bullhorn"></i>
+                </div>  
+                <div class="sidebar-brand-text mx-3">ATIVO E OPERANTE</div>
+            </a>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Componentes</div>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard/organs">
+                    <i class="fas fa-fw fa-user-tie"></i>
+                    <span>Orgãos Responsáveis</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/problems">
+                    <i class="fas fa-fw fa-exclamation"></i>
+                    <span>Problemas</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Usuários</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/users">
+                    <i class="fas fa-fw fa-user-friends"></i>
+                    <span>Cadastros</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/warnings">
+                    <i class="fas fa-fw fa-exclamation-triangle"></i>
+                    <span>Denúncias</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars txt-red"></i>
+                        </button>
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa txt-red fa-user" style="color:grey; margin-right: 0.6em;"></i>
+                                <span th:text="${username}" class="mr-2 d-none d-lg-inline text-gray-600 small txt-red"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-id-card fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Configurações
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 80%;margin: 0 auto; justify-content: center;margin-bottom: 1.5em;">
+                    <strong>Erro:</strong> Não foi possível efetuar essa ação!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="container-fluid">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold txt-red">Orgãos Responsáveis</h6>
+                        </div>
+                        <div class="card-body">                            
+                            <div class="table-responsive">
+                                <button type="button" class="btn back-red" data-toggle="modal" data-target="#newModal">NOVO</button>
+                                <form method="POST" action="/dashboard/organs/search" class="d-none d-sm-inline-flex form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 float-right" style="margin-bottom: 1.5em !important;">
+                                    <div class="input-group">
+                                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Procurar por..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn back-red" type="submit">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>                                    
+                                </form>
+                                <!--Início do Modal-->
+                                <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="newModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="newModalLabel">Orgão Responsável - Novo</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form method="POST" action="/dashboard/organs/new">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="orgname">Nome</label>
+                                                        <input type="text" class="form-control" name="orgname" id="orgname" placeholder="Ministério / Prefeitura / Setor">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="orgdesc">Descrição</label>
+                                                        <textarea class="form-control" id="orgdesc" name="orgdesc" placeholder="..." rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn back-red">Salvar</button>
+                                                </div>
+                                            </form>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fim do Modal-->
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nome</th>
+                                            <th>Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--Loop-->
+                                        <div th:each="organ : ${organs}">
+                                            <tr th:attr="id='line' + ${organ.id}">
+                                                <td th:text="${organ.id}"></td>
+                                                <td th:text="${organ.name}"></td>
+                                                <td th:text="${organ.description}"></td>
+                                                <td style="background-color: white;border: 0 solid white;">
+                                                    <button type="button" data-toggle="modal" th:attr="data-target='#modalUpdate' + ${organ.id}" class="btn btn-primary" style="margin:0.4em"><i class="fa fa-pen"></i></button>
+                                                    <button type="button" data-toggle="modal" th:attr="data-target='#modalDelete' + ${organ.id}" class="btn btn-danger" style="margin:0.4em"><i class="fa fa-trash-alt"></i></button>
+                                                </td>
+                                                <div class="modal fade" th:attr="id='modalUpdate' + ${organ.id}, aria-labelledby='modalUpdate' + ${organ.id} + 'Label'" tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" th:attr="id='modalUpdate' + ${organ.id} + 'Label'">Orgão Responsável - Alterar</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="/dashboard/organs/update" method="POST">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="uorgname">Nome</label>
+                                                                        <input type="text" class="form-control" th:value="${organ.name}" name="uorgname" th:attr="id='uorgname' + ${organ.id}" placeholder="Ministério / Prefeitura / Setor">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="uorgdesc">Descrição</label>
+                                                                        <textarea class="form-control" th:attr="id='uorgdesc' + ${organ.id}" th:text="${organ.description}" name="uorgdesc" placeholder="..." rows="3"></textarea>
+                                                                    </div>
+                                                                    <input type="hidden" th:attr="id='uid' + ${organ.id}" name="uid" th:value="${organ.id}">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                    <button type="submit" class="btn back-red">Salvar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fim Modal Update -->
+                                                <!--Modal Delete-->
+                                                <div class="modal fade" th:attr="id='modalDelete' + ${organ.id}, aria-labelledby='modalDelete' + ${organ.id} + 'Label'" tabindex="-1" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" th:attr="id='modalDelete' + ${organ.id} + 'Label'">Orgão Responsável - Excluir</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>                            
+                                                            <form method="POST" action="/dashboard/organs/delete">
+                                                                <div class="modal-body">
+                                                                    <h6>Deseja realmente Excluir?</h6>
+                                                                </div>
+                                                                <input type="hidden" name="delid" th:attr="id='delid' + ${organ.id}" th:value="${organ.id}">
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                                                                    <button type="submit" class="btn btn-success">Sim</button>
+                                                                </div>
+                                                            </form>                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--Fim Modal Delete-->
+                                            </tr>
+                                        </div>
+                                        <!--End Loop-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Todos os direitos reservados &copy; | Ativo e Operante - 2020</span>                        
+                        <a href="github.com/Krauzy" class="float-right">
+                            <img src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" width="25px">
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/js/sb-admin-2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</body>
+</html>

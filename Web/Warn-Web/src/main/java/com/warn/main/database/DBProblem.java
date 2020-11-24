@@ -9,30 +9,27 @@ import com.warn.main.model.Problem;
 
 public class DBProblem {
 	public static boolean insert(Problem prob) {
-		Database db = new Database();
-		String SQL = "INSERT INTO Problem (name, description) VALUE ('#name', '#desc')";
+		Database db = Database.getInstance();
+		String SQL = "INSERT INTO Problem (name, description) VALUES ('#name', '#desc')";
 		SQL = SQL.replace("#name", prob.getName())
 				.replace("#desc", prob.getDescription());
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean update(Problem prob) {
-		Database db = new Database();
+		Database db = Database.getInstance();
 		String SQL = "UPDATE Problem SET name = '#name', description = '#desc' WHERE id = " + prob.getId();
 		SQL = SQL.replace("#name", prob.getName())
 				.replace("#desc", prob.getDescription());
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean delete(int id) {
-		Database db = new Database();
+		Database db = Database.getInstance();
 		String SQL = "DELETE FROM Problem WHERE id = " + id;
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
@@ -41,7 +38,7 @@ public class DBProblem {
 		String SQL = "SELECT * FROM Problem";
 		if(!filter.isEmpty())
 			SQL += " WHERE " + filter;
-		Database db = new Database();
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			while(rs.next()) {
@@ -61,8 +58,8 @@ public class DBProblem {
 	
 	public static Problem get(int id) {
 		Problem problems = null;
-		String SQL = "SELECT * FROM Organ WHERE id = " + id;
-		Database db = new Database();
+		String SQL = "SELECT * FROM Problem WHERE id = " + id;
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			if(rs.next()) {

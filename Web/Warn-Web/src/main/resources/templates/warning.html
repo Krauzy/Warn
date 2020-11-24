@@ -1,315 +1,427 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>Warn - Ativo e Operante</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
-		<style>
-			.flex {
-				display: flex;
-				flex-wrap: wrap;
-				width: 100%;
-				margin: 0 auto;
-				justify-content: center;
-			}
-			.formflex {
-				margin: 0 auto;
-				justify-content: center;
-				width: 60%	;
-			}
-			.nav-link:hover {
-				text-decoration: underline;
-			}
-			.box {
-				border: 1px solid #ed1c24;
-				display: inline-flex;
-				width: 50%;
-				border-radius: 10px;
-				font-family: 'Montserrat', sans-serif;
-				font-size: 85%;
-			}
-			.checked {
-				color: #ed1c24;
-			}
-		</style>
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ed1c24;font-family: 'Montserrat', sans-serif;">
-			<a class="navbar-brand" href="#">
-				<img src="https://i.ibb.co/Bs6h7Zj/logo.png" style="height: 30px; width: 40px;" alt="logo"/>
-			</a>
-			<button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			  <ul class="navbar-nav">
-				<li class="nav-item active">
-				  <a class="nav-link" href="/" style="color: white">Home<span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/more" style="color: white">Saiba Mais</a>
-				</li>
-				<li class="nav-item">
-				  <a class="nav-link" href="/warning" style="color: white">Efetuar Denúncia</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/admin" style="color: white">Admin</a>
-				</li>
-			  </ul>  	
-			</div>
-			<div class="navbar-nav flex-row d-lg-flex justify-content-end">
-				<a class="nav-link" href="/login" style="color:white">Login</a>
-			</div>
-		  </nav>
-		<main class="pt-4 flex" style="margin-bottom: 1.5em;">
-			<div class="box flex">
-				<form class="formflex">
-					<h3 style="font-family: 'Inter', sans-serif;text-align: center;color: #ed1c24;margin-top: 1.1em;margin-bottom: 0.5em;">DENUNCIAR</h3>
-					<h5 style="margin-bottom: 0.8em; font-size: 1.2em;text-decoration: underline;color: #ed1c24;">O que é o problema?</h5>
-					<div class="form-group">
-						<label for="InputTitle">Título do Problema</label>
-						<input type="text" class="form-control" name="wtitle" id="InputTitle" aria-describedby="titleHelp" placeholder="Digite o problema">
-					</div>
-					<div class="form-group">
-						<label for="InputTitle">Descrição do Problema</label>
-						<textarea class="form-control" name="wdescription" id="InputDesc" placeholder="Descreva o problema..." rows="5"></textarea>
-					</div>
-					<div style="display: flex;">
-						<div class="form-group" style="margin-right: 0.5em; width: 50%;">
-							<label for="InputProblem">Tipo de Problema</label>
-							<select id="InputProblem" class="form-control">
-								<option value="NaN" selected>Escolha...</option>
-							</select>
-							<input type="hidden" value="" name="wprob" id="wprob">
-						</div>
-						<div class="form-group" style="width: 50%;">	
-							<label for="InputOrgan">Orgão Responsável</label>
-							<select id="InputOrgan" class="form-control">
-								<option value="NaN" selected>Escolha...</option>
-							</select>
-							<input type="hidden" value="" name="worgan" id="worgan">
-						</div>
-					</div>
-					<h5 class="pt-4" style="margin-bottom: 0.8em; font-size: 1.2em;text-decoration: underline;color: #ed1c24;">Onde está o problema?</h5>
-					<div class="form-group">
-						<label for="InputCEP">CEP <span style="font-size: 0.8em;">(opicional)</span></label>
-						<input type="text" class="form-control" name="wcep" id="InputCEP" aria-describedby="cepHelp" placeholder="00000-000">
-					</div>
-					<div style="display: flex;">
-						<div class="form-group" style="margin-right: 0.5em;width: 100%;">
-							<label for="InputAdress">Endereço</label>
-							<input type="text" class="form-control" name="wadress" id="InputAdress" aria-describedby="adressHelp" placeholder="Digite a rua ou avenida">
-						</div>
-						<div class="form-group" style="width: 30%;">
-							<label for="InputNum">Número</label>
-							<input type="text" class="form-control" name="wnum" id="InputNum" aria-describedby="numHelp" placeholder="Nº">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="InputDistrict">Bairro</label>
-						<input type="text" class="form-control" name="wdistrict" id="InputDistrict" aria-describedby="districtHelp" placeholder="Digite o bairro">
-					</div>
-					<div style="display: flex;">
-						<div class="form-group" style="margin-right: 0.5em; width: 35%;">
-							<label for="InputState">Estado</label>
-							<select id="InputState" class="form-control">
-								<option value="AC">AC</option>
-								<option value="AL">AL</option>
-								<option value="AP">AP</option>
-								<option value="AM">AM</option>
-								<option value="BA">BA</option>
-								<option value="CE">CE</option>
-								<option value="DF">DF</option>
-								<option value="ES">ES</option>
-								<option value="GO">GO</option>
-								<option value="MA">MA</option>
-								<option value="MT">MT</option>
-								<option value="MS">MS</option>
-								<option value="MG">MG</option>
-								<option value="PA">PA</option>
-								<option value="PB">PB</option>
-								<option value="PR">PR</option>
-								<option value="PE">PE</option>
-								<option value="PI">PI</option>
-								<option value="RJ">RJ</option>
-								<option value="RN">RN</option>
-								<option value="RS">RS</option>
-								<option value="RO">RO</option>
-								<option value="RR">RR</option>
-								<option value="SC">SC</option>
-								<option value="SP" selected>SP</option>
-								<option value="SE">SE</option>
-								<option value="TO">TO</option>
-							</select>
-							<input type="hidden" value="" name="wstate" id="wstate">
-						</div>
-						<div class="form-group" style="width: 100% !important;">	
-							<label for="InputCity">Cidade</label>
-							<input type="text" class="form-control" name="wcity" id="InputCity" aria-describedby="cityHelp" placeholder="Digite a cidade">
-						</div>
-					</div>
-					<h5 class="pt-4" style="margin-bottom: 0.8em; font-size: 1.2em;text-decoration: underline;color: #ed1c24;">Tem uma foto?</h5>
-					<img id="imgPhoto" width="250px"></img>
-					<div class="form-group">
-						<label for="exampleFormControlFile1">Envie uma foto do problema <span style="font-size: 0.8em;">(opicional)</span></label>
-						<input type="file" class="form-control-file" id="InputPhoto" name="wphoto" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
-					</div>
-					<h5 class="pt-4" style="margin-bottom: 0.8em; font-size: 1.2em;text-decoration: underline;color: #ed1c24;">O PROBLEMA É URGENTE?</h5>
-					<div class="form-group">
-						<label for="exampleFormControlFile1">Nível de Urgência: </label>
-						<span style="cursor: pointer;" id="star1" class="fa fa-star checked"></span>
-						<span style="cursor: pointer;" id="star2" class="fa fa-star"></span>
-						<span style="cursor: pointer;" id="star3" class="fa fa-star"></span>
-						<span style="cursor: pointer;" id="star4" class="fa fa-star"></span>
-						<span style="cursor: pointer;" id="star5" class="fa fa-star"></span>
-					</div>
-					<input value="1" type="hidden" name="wlevel" id="wlevel">
-					<button type="submit" id="submit" class="btn btn-danger" style="width: 100%;margin-top: 1.1em;margin-bottom: 1.1em;background-color: #ed1c24;">Denunciar</button>
-				</form>
-			</div> <!--box-->
-		</main>
-		<footer class="page-footer font-small blue pt-4" style="background-color: #ed1c24; bottom:0">
-			<div class="container-fluid text-center text-md-left">
-				<div class="row">
-					<div class="col-md-6 mt-md-0 mt-3">
-						<div style="display: inline-flex;">
-							<a class="navbar-brand" href="/">
-								<img src="https://i.ibb.co/Bs6h7Zj/logo.png" style="height: 30px; width: 40px;" alt="logo"/>
-							</a>
-							<h5 style="color: white;margin-top: 0.5em;">WARN - Ativo e Operante</h5>
-						</div>
-						<p class="pt-4" style="color: white; font-family: 'Montserrat', sans-serif;">A Warn foi criada com o intuíto de ajudar o cidadão a manter-se satisfeito com o local onde vive, dando a ele uma ferramenta para avisar autoridades maiores sobre problemas na cidade. 
-							<a href="/more" style="color: #303030">Saiba Mais</a>
-						</p>
-						<a href="https://play.google.com/store?hl=pt_BR&gl=US" target="_blank"><img src="https://i.ibb.co/YfDdDpT/playstore.png" alt="playstore"/></a>
-						<a href="https://www.apple.com/br/ios/app-store/" target="_blank"><img src="https://i.ibb.co/KqwBLc9/appstore.png" alt="appstore"/></a>
-					</div>
-					<hr class="clearfix w-100 d-md-none pb-3">
-					<div class="col-md-3 mb-md-0 mb-3">
-						<h5 class="text-uppercase text-center" style="color:white">Páginas</h5>
-						<ul class="list-unstyled text-center" style="font-family: 'Montserrat', sans-serif;">
-							<li>
-								<a href="/" style="color: #303030;">Home</a>
-							</li>
-							<li>
-								<a href="/more" style="color: #303030;">Saiba Mais</a>
-							</li>
-							<li>
-								<a href="/warning" style="color: #303030;">Efetuar Denúncia</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-3 mb-md-0 mb-3">
-						<h5 class="text-uppercase text-center" style="color: white;">Links</h5>
-						<ul class="list-unstyled text-center" style="font-family: 'Montserrat', sans-serif;">
-							<li>
-								<a href="/problem" style="color: #303030;">Relatar Problema</a>
-							</li>
-							<li>
-								<a href="/privacy" style="color: #303030;">Política de Privacidade</a>
-							</li>
-							<li>
-								<a href="/conditions" style="color: #303030;">Termos e Condições de Uso</a>
-							</li>
-							<li>
-								<a href="/answer" style="color: #303030;">Perguntas Frequentes</a>
-							</li>
-							<li>
-								<a href="/talk" style="color: #303030;">Fale Conosco</a>
-							</li>
-						</ul>  
-					</div>
-				</div>
-			</div>
-			<div class="footer-copyright text-center" style="color: white;">© 2020 Copyright</div>
-		</footer>
-		<script>
-			function readURL(input) {
-				if(input.files && input.files[0]) {
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						$('#imgPhoto').attr('src', e.target.result);
-						console.log(e.target);
-					}
-					reader.readAsDataURL(input.files[0]);
-				}
-			}
-			$(document).ready(function(){
-				$("#InputCEP").mask('00000-000');
-				$("#InputNum").mask('09999');
-			});
+<html lang="pt-br">
 
-			$("#InputPhoto").change(function() {
-				readURL(this);
-			});
-			//
-			var star1 = document.getElementById('star1');
-			var star2 = document.getElementById('star2');
-			var star3 = document.getElementById('star3');
-			var star4 = document.getElementById('star4');
-			var star5 = document.getElementById('star5');
-			star1.onclick = () => {
-				star1.setAttribute('class', 'fa fa-star checked');
-				star2.setAttribute('class', 'fa fa-star');
-				star3.setAttribute('class', 'fa fa-star');
-				star4.setAttribute('class', 'fa fa-star');
-				star5.setAttribute('class', 'fa fa-star');
-				document.getElementById('wlevel').setAttribute('value', 1);
-			}
-			star2.onclick = () => {
-				star1.setAttribute('class', 'fa fa-star checked');
-				star2.setAttribute('class', 'fa fa-star checked');
-				star3.setAttribute('class', 'fa fa-star');
-				star4.setAttribute('class', 'fa fa-star');
-				star5.setAttribute('class', 'fa fa-star');
-				document.getElementById('wlevel').setAttribute('value', 2);
-			} 
-			star3.onclick = () => {
-				star1.setAttribute('class', 'fa fa-star checked');
-				star2.setAttribute('class', 'fa fa-star checked');
-				star3.setAttribute('class', 'fa fa-star checked');
-				star4.setAttribute('class', 'fa fa-star');
-				star5.setAttribute('class', 'fa fa-star');
-				document.getElementById('wlevel').setAttribute('value', 3);
-			} 
-			star4.onclick = () => {
-				star1.setAttribute('class', 'fa fa-star checked');
-				star2.setAttribute('class', 'fa fa-star checked');
-				star3.setAttribute('class', 'fa fa-star checked');
-				star4.setAttribute('class', 'fa fa-star checked');
-				star5.setAttribute('class', 'fa fa-star');
-				document.getElementById('wlevel').setAttribute('value', 4);
-			} 
-			star5.onclick = () => {
-				star1.setAttribute('class', 'fa fa-star checked');
-				star2.setAttribute('class', 'fa fa-star checked');
-				star3.setAttribute('class', 'fa fa-star checked');
-				star4.setAttribute('class', 'fa fa-star checked');
-				star5.setAttribute('class', 'fa fa-star checked');
-				document.getElementById('wlevel').setAttribute('value', 5);
-			}
-			//
-			document.getElementById('submit').onclick = () => {
-				document.getElementById('wprob')
-				.setAttribute('value', document
-				.getElementById('InputProblem').value);
-				///////////////////////////////////////
-				document.getElementById('worgan')
-				.setAttribute('value', document.
-				getElementById('InputOrgan').value);
-				///////////////////////////////////////
-				document.getElementById('wstate')
-				.setAttribute('value', document
-				.getElementById('InputState').value);
-			}
-			//
-		</script>
-	</body>
-</html> 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/css/sb-admin-2.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <style>
+        .back-red {
+            background-color: #960019;
+            color: white;
+        }
+        .txt-red {
+            color: #960019 !important;
+        }
+        .back-red-white {
+            color: #960019;
+            background-color: white;
+            border-color: #960019;
+        }
+        .f-link {
+            color:#960019 !important;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .f-link:hover {
+            color:#007bff !important;
+        }
+        .star-link{
+            color:#960019;
+            cursor: pointer;
+            font-size: larger;
+        }
+        label{
+            color: #960019;
+        }
+        h5 {
+            color: #960019;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav sidebar back-red sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-bullhorn"></i>
+                </div>  
+                <div class="sidebar-brand-text mx-3">ATIVO E OPERANTE</div>
+            </a>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Componentes</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/organs">
+                    <i class="fas fa-fw fa-user-tie"></i>
+                    <span>Orgãos Responsáveis</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/problems">
+                    <i class="fas fa-fw fa-exclamation"></i>
+                    <span>Problemas</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Usuários</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/users">
+                    <i class="fas fa-fw fa-user-friends"></i>
+                    <span>Cadastros</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/dashboard/warnings">
+                    <i class="fas fa-fw fa-exclamation-triangle"></i>
+                    <span>Denúncias</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars txt-red"></i>
+                        </button>
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa txt-red fa-user" style="color:grey; margin-right: 0.6em;"></i>
+                                <span th:text="${username}" class="mr-2 d-none d-lg-inline text-gray-600 small txt-red"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-id-card fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Configurações
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Sair
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert" style="width: 80%;margin: 0 auto; justify-content: center;margin-bottom: 1.5em;">
+                    <strong>Erro:</strong> Não foi possível efetuar essa ação!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div  style="margin: 0.7em;">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold txt-red">Denúncias</h6>
+                        </div>
+                        <div class="card-body">                            
+                            <div class="table-responsive">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button onclick="location.href='/dashboard/warnings?time=all';" type="button" th:attr="class=${flag == 'all'} ? 'btn back-red' : 'btn back-red-white'">Todo o período</button>                               
+                                    <button onclick="location.href='/dashboard/warnings?time=week';" type="button" th:attr="class=${flag == 'week'} ? 'btn back-red' : 'btn back-red-white'">Esta semana</button>
+                                    <button onclick="location.href='/dashboard/warnings?time=mounth';" type="button" th:attr="class=${flag == 'mounth'} ? 'btn back-red' : 'btn back-red-white'">Este mês</button>
+                                    <button onclick="location.href='/dashboard/warnings?time=today';" type="button" th:attr="class=${flag == 'today'} ? 'btn back-red' : 'btn back-red-white'">Hoje</button>                      
+                                </div>
+                                <form action="/dashboard/warning/search" method="POST" class="d-none d-sm-inline-flex form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 float-right" style="margin-bottom: 1.5em !important;">
+                                    <div class="input-group">
+                                    <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Procurar por..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn back-red" type="submit">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </form>
+                                <table class="table table-bordered" id="dataTable" cellspacing="0" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Título</th>
+                                            <th>Descrição</th>
+                                            <th>Data</th>
+                                            <th>Endereço</th>                                            
+                                            <th>Tipo de Problema</th>
+                                            <th>Orgão Responsável</th>
+                                            <th>Denunciante</th>
+                                            <th>Urgência</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        <!--Loop-->
+                                        <tr th:each="warn,index : ${warnings}"> 
+                                            <td th:attr="id='idnote' + ${index.count}" th:text="${warn.id}"></td>
+                                            <td th:text="${warn.title}"></td>
+                                            <td th:text="${warn.description}"></td>
+                                            <td th:text="${warn.date}"></td>
+                                            <td th:text="${warn.adress}"></td>
+                                            <td th:text="${warn.type}"></td>
+                                            <td th:text="${warn.organ}"></td>
+                                            <td><a th:attr="href='/dashboard/users/search?search=' + ${warn.user}" th:text="${warn.user}"></a></td>
+                                            <td th:text="${warn.level}"><i class="fa fa-star"></i></td>
+                                            <td style="background-color: white;border: 0 solid white;">
+                                                <button type="button" data-toggle="modal" th:attr="data-target='#modalUpdate' + ${warn.id}" class="btn btn-primary" style="margin:0.4em"><i class="fa fa-pen"></i></button>
+                                                <button type="button" data-toggle="modal" th:attr="data-target='#modalDelete' + ${warn.id}" class="btn btn-danger" style="margin:0.4em"><i class="fa fa-trash-alt"></i></button>
+                                            </td>
+                                            <!--Modal Update-->
+                                            <div class="modal fade" th:attr="id='modalUpdate' + ${warn.id}, aria-labelledby='modalUpdate' + ${warn.id} + 'Label'" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" th:attr="id='modalUpdate' + ${warn.id} + 'Label'">Denúncia - Alterar</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/dashboard/warnings/update" method="POST">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="wtitle">Título</label>
+                                                                    <input type="text" th:value="${warn.title}" class="form-control" name="wtitle" th:attr="id='wtitle' + ${warn.id}" placeholder="Qual o problema?">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="wdesc">Descrição</label>
+                                                                    <textarea class="form-control" th:text="${warn.description}" name="wdesc" th:attr="id='wdesc' + ${warn.id}" rows="3" placeholder="Descreva o problema..."></textarea>
+                                                                </div>
+                                                                <hr/>
+                                                                <div style="display: flex;">                                                                    
+                                                                    <div class="form-group" style="margin-right: 1.5em;width: 50%;">
+                                                                        <label for="wcep">CEP <span style="font-size: small;">(opcional)</span></label>
+                                                                        <input type="text" th:value="${warn.cep}" class="form-control" name="wcep" th:attr="id='wcep' + ${warn.id}" placeholder="99999-999">
+                                                                    </div>
+                                                                    <div class="form-group" style="width: 30%;margin-right: 1.5em;">
+                                                                        <label th:attr="for='wselectstate' + ${warn.id}">Estado</label>
+                                                                        <select th:attr="id='wselectstate' + ${warn.id}" class="form-control">
+                                                                            <option th:selected="${warn.state=='AC'}">AC</option>
+                                                                            <option th:selected="${warn.state=='AL'}">AL</option>
+                                                                            <option th:selected="${warn.state=='AP'}">AP</option>
+                                                                            <option th:selected="${warn.state=='AM'}">AM</option>
+                                                                            <option th:selected="${warn.state=='BA'}">BA</option>
+                                                                            <option th:selected="${warn.state=='CE'}">CE</option>
+                                                                            <option th:selected="${warn.state=='ES'}">ES</option>
+                                                                            <option th:selected="${warn.state=='GO'}">GO</option>
+                                                                            <option th:selected="${warn.state=='MA'}">MA</option>
+                                                                            <option th:selected="${warn.state=='MT'}">MT</option>
+                                                                            <option th:selected="${warn.state=='MS'}">MS</option>
+                                                                            <option th:selected="${warn.state=='PA'}">PA</option>
+                                                                            <option th:selected="${warn.state=='PB'}">PB</option>
+                                                                            <option th:selected="${warn.state=='PR'}">PR</option>
+                                                                            <option th:selected="${warn.state=='PE'}">PE</option>
+                                                                            <option th:selected="${warn.state=='PI'}">PI</option>
+                                                                            <option th:selected="${warn.state=='RJ'}">RJ</option>
+                                                                            <option th:selected="${warn.state=='RN'}">RN</option>
+                                                                            <option th:selected="${warn.state=='RS'}">RS</option>
+                                                                            <option th:selected="${warn.state=='RO'}">RO</option>
+                                                                            <option th:selected="${warn.state=='RR'}">RR</option>
+                                                                            <option th:selected="${warn.state=='SC'}">SC</option>
+                                                                            <option th:selected="${warn.state=='SP'}">SP</option>
+                                                                            <option th:selected="${warn.state=='SE'}">SE</option>
+                                                                            <option th:selected="${warn.state=='TO'}">TO</option>
+                                                                            <option th:selected="${warn.state=='DF'}">DF</option>
+                                                                        </select>
+                                                                        <input type="hidden" th:attr="id='wstate' + ${warn.id}" name="wstate" th:value="${warn.state}">
+                                                                    </div>
+                                                                    <div class="form-group" style="width: 100%;">
+                                                                        <label for="wcity">Cidade</label>
+                                                                        <input type="text" th:value="${warn.city}" class="form-control" th:attr="id='wcity' + ${warn.id}" name="wcity" placeholder="Digite a cidade">
+                                                                    </div>                                                                    
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="wdist">Bairro</label>
+                                                                    <input type="text" th:value="${warn.district}" class="form-control" name="wdist" th:attr="id='wdist' + ${warn.id}" placeholder="Digite o bairro">
+                                                                </div>
+                                                                <div style="display: flex;">
+                                                                    <div class="form-group" style="width: 100%;margin-right: 1.5em;">
+                                                                        <label for="wadress">Endereço</label>
+                                                                        <input type="text" th:value="${warn.street}" class="form-control" name="wstreet" th:attr="id='wstreet' + ${warn.id}" placeholder="Digite a rua / avenida">
+                                                                    </div>
+                                                                    <div class="form-group" style="width: 20%;">
+                                                                        <label for="wnumber">Número</label>
+                                                                        <input type="text" th:value="${warn.number}" class="form-control" name="wnumber" th:attr="id='wnumber' + ${warn.id}" placeholder="0000">
+                                                                    </div>
+                                                                </div>
+                                                                <div style="display: flex;">
+                                                                    <div class="form-group" style="width: 100%;margin-right: 1.5em;">
+                                                                        <label th:attr="for='wselectorgan' + ${warn.id}">Orgão Responsável</label>
+                                                                        <select th:attr="id='wselectorgan' + ${warn.id}, name='wselectorgan' + ${warn.id}" class="form-control">
+                                                                            <option th:each="organ : ${organs}"  th:value="${organ.name}" th:text="${organ.name}" th:selected="${organ.name + '' == warn.organ + ''}"></option>
+                                                                        </select>
+                                                                        <input type="hidden" th:attr="id='worgan' + ${warn.id}" name="worgan" th:value="${warn.organ}">
+                                                                    </div>
+                                                                    <div class="form-group" style="width: 100%;">
+                                                                        <label th:attr="for='wselectprob' + ${warn.id}">Tipo de Problema</label>
+                                                                        <select th:attr="id='wselectprob' + ${warn.id}, name='wselectprob' + ${warn.id}" class="form-control">
+                                                                            <option th:each="type : ${problems}" th:value="${type.name}" th:text="${type.name}" th:selected="${type.name + '' == warn.type + ''}"></option>
+                                                                        </select><!-- -->
+                                                                        <input type="hidden" th:attr="id='wprob' + ${warn.id}" name="wprob" th:value="${warn.type}">
+                                                                    </div>
+                                                                </div>
+                                                                <div style="display: flex;">
+                                                                    <div class="form-group" style="width: 100%;margin-right: 1.5em;">
+                                                                        <label th:attr="for='wselectuser' + ${warn.id}">Usuário</label>
+                                                                        <select th:attr="id='wselectuser' + ${warn.id}, name='wselectuser' + ${warn.id}" class="form-control">
+                                                                            <option th:each="user : ${users}" th:text="${user.name}" th:value="${user.name}" th:selected="${user.name + '' == warn.user + ''}"></option>
+                                                                        </select>
+                                                                        <input type="hidden" th:attr="id='wuser' + ${warn.id}" name="wuser" th:value="${warn.user}">
+                                                                    </div>
+                                                                    <div class="form-group" style="width: 100%;">
+                                                                        <label for="wdate">Data</label>
+                                                                        <input type="date" th:value="${warn.date}" class="form-control" th:attr="id='wdate' + ${warn.id}" name="wdate">
+                                                                    </div>
+                                                                </div>
+                                                                <hr/>
+                                                                <div class="form-group">
+                                                                    <label for="wlevel">O problema é URGENTE?</label>
+                                                                    <input type="hidden" th:attr="id='wlevel' + ${warn.id}" name="wlevel" th:value="${warn.level}">
+                                                                    <div style="display: inline;margin-left: 1.5em;">
+                                                                        <a th:attr="onclick='setStar(1,' + ${warn.id} + ')'">
+                                                                            <i th:attr="class=${warn.level > 0} ? 'star' + ${warn.id} + ' fas fa-star star-link' : 'star' + ${warn.id} + ' far fa-star star-link'"></i>
+                                                                        </a>
+                                                                        <a th:attr="onclick='setStar(2,' + ${warn.id} + ')'">
+                                                                            <i th:attr="class=${warn.level > 1} ? 'star' + ${warn.id} + ' fas fa-star star-link' : 'star' + ${warn.id} + ' far fa-star star-link'"></i>
+                                                                        </a>
+                                                                        <a th:attr="onclick='setStar(3,' + ${warn.id} + ')'">
+                                                                            <i th:attr="class=${warn.level > 2} ? 'star' + ${warn.id} + ' fas fa-star star-link' : 'star' + ${warn.id} + ' far fa-star star-link'"></i>
+                                                                        </a>
+                                                                        <a th:attr="onclick='setStar(4,' + ${warn.id} + ')'">
+                                                                            <i th:attr="class=${warn.level > 3} ? 'star' + ${warn.id} + ' fas fa-star star-link' : 'star' + ${warn.id} + ' far fa-star star-link'"></i>
+                                                                        </a>
+                                                                        <a th:attr="onclick='setStar(5,' + ${warn.id} + ')'">
+                                                                            <i th:attr="class=${warn.level > 4} ? 'star' + ${warn.id} + ' fas fa-star star-link' : 'star' + ${warn.id} + ' far fa-star star-link'"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="uid" th:value="${warn.id}">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                                <button type="submit" th:attr="onclick='setPost(' + ${warn.id} + ')'" id="update-submit" class="btn back-red">Salvar</button>
+                                                            </div>
+                                                        </form>                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Fim Modal Update-->
+                                            <!--Modal Delete-->
+                                            <div class="modal fade" th:attr="id='modalDelete' + ${warn.id}, aria-labelledby='modalDelete' + ${warn.id} + 'Label'" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" th:attr="id='modalDelete' + ${warn.id} + 'Label'">Denúncia - Excluir</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/dashboard/warnings/delete" method="POST">
+                                                            <div class="modal-body">
+                                                                <h6>Deseja realmente Excluir?</h6>
+                                                            </div>
+                                                            <input type="hidden" name="delid" th:value="${warn.id}">
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                                                                <button type="submit" class="btn btn-success">Sim</button>
+                                                            </div>
+                                                        </form>                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Fim Modal Delete-->
+                                        </tr>
+                                        <!--End Loop-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Todos os direitos reservados &copy; | Ativo e Operante - 2020</span>                        
+                        <a href="github.com/Krauzy" class="float-right">
+                            <img src="https://www.flaticon.com/svg/static/icons/svg/25/25231.svg" width="25px">
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/js/sb-admin-2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+        var count = document.querySelectorAll('tbody tr');
+        for(let i = 0; i < count.length; i++) {
+            var id = document.getElementById('idnote' + (i + 1)).textContent;
+            $('#wcep' + id).mask('00000-000');
+            $('#wnumber' + id).mask('09999');
+        }
+        function setPost(index) {
+            var states = document.querySelectorAll("#wselectstate" + index + " option");
+            var state = document.getElementById('wstate' + index);
+            states.forEach((s) => {
+                if(s.selected)
+                    state.value = s.textContent;
+            });
+            var organs = document.querySelectorAll("#wselectorgan" + index + " option");
+            var organ = document.getElementById('worgan' + index);
+            organs.forEach((o) => {
+                if(o.selected)
+                    organ.value = o.textContent;
+            });
+            var probs = document.querySelectorAll("#wselectprob" + index + " option");
+            var prob = document.getElementById('wprob' + index);
+            probs.forEach((p) => {
+                if(p.selected)
+                    prob.value = p.textContent;
+            });
+            var users = document.querySelectorAll("#wselectuser" + index + " option");
+            var user = document.getElementById('wuser' + index);
+            users.forEach((u) => {
+                if(u.selected)
+                    user.value = u.textContent;
+            });
+        }
+        function setStar(index, id) {
+            var stars = document.querySelectorAll(".star" + id);
+            for(let i = 0; i < 5; i++) {
+                if(i < index)
+                    stars[i].setAttribute('class', 'star' + id + ' fas fa-star star-link');
+                else
+                    stars[i].setAttribute('class', 'star' + id + ' far fa-star star-link');
+            }
+            document.getElementById('wlevel' + id).value = index;
+        }        
+    </script>    
+</body>
+</html>

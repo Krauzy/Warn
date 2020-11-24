@@ -1,22 +1,18 @@
 package com.warn.main.model;
 
-import java.time.Instant;
-import java.util.Date;
-
-import com.warn.main.util.Crypto;
-import com.warn.main.util.Session;
+import java.time.LocalDate;
 
 public class User {
 	private int id;
 	private String name;
 	private String lastname;
 	private String cpf;
-	private Date date;
+	private LocalDate date;
 	private String email;
 	private String password;
 	private boolean admin;
 	
-	public User(int id, String name, String lastname, String cpf, Date date, String email, String password, boolean admin) {
+	public User(int id, String name, String lastname, String cpf, LocalDate date, String email, String password, boolean admin) {
 		//super();
 		this.id = id;
 		this.name = name;
@@ -28,7 +24,7 @@ public class User {
 		this.admin = admin;
 	}
 	
-	public User(String name, String lastname, String cpf, Date date, String email, String password, boolean admin) {
+	public User(String name, String lastname, String cpf, LocalDate date, String email, String password, boolean admin) {
 		//super();
 		this.id = 0;
 		this.name = name;
@@ -40,7 +36,7 @@ public class User {
 		this.admin = admin;
 	}
 	
-	public User(int id, String name, String lastname, String cpf, Date date, String email, String password) {
+	public User(int id, String name, String lastname, String cpf, LocalDate date, String email, String password) {
 		//super();
 		this.id = id;
 		this.name = name;
@@ -52,7 +48,7 @@ public class User {
 		this.admin = false;
 	}
 	
-	public User(String name, String lastname, String cpf, Date date, String email, String password) {
+	public User(String name, String lastname, String cpf, LocalDate date, String email, String password) {
 		//super();
 		this.id = 0;
 		this.name = name;
@@ -65,7 +61,7 @@ public class User {
 	}
 	
 	public User() {
-		this("", "", "", Date.from(Instant.now()), "", "");
+		this("", "", "", LocalDate.now(), "", "");
 	}
 	
 	public int getId() {
@@ -100,11 +96,11 @@ public class User {
 		this.cpf = cpf;
 	}
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	
@@ -130,18 +126,6 @@ public class User {
 	
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
-	}
-	
-	public void encrypt() {
-		Crypto crypt = new Crypto(Session.KEY);
-		crypt.encrypt(this.password);
-		this.password = crypt.getEncrypted();
-	}
-	
-	public void decrypt() {
-		Crypto crypt = new Crypto(Session.KEY);
-		crypt.decrypt(this.password);
-		this.password = crypt.getDecrypted();
 	}
 	
 	@Override

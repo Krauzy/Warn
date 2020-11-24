@@ -11,52 +11,51 @@ import com.warn.main.util.Session;
 
 public class DBUser {
 	public static boolean insert(User u) {
-		Database db = new Database();
-		String SQL = "INSERT INTO User (name, lastname, cpf, date, email, password, admin)"
-				+ " VALUES ('#name', '#lastname', '#cpf', '#date', '#email', '#password', #adm)";
+		Database db = Database.getInstance();
+		String SQL = "INSERT INTO public.\"user\" (name, lastname, cpf, date, email, password, admin)"
+				+ " VALUES ('#name', '#lastname', '#cpf', '#date', '#email', '#password', '#adm')";
 		SQL = SQL.replace("#name", u.getName())
 				.replace("#lastname", u.getLastname())
 				.replace("#cpf", u.getCpf())
-				.replace("#data", u.getDate().toString())
+				.replace("#date", u.getDate().getDayOfMonth() + "-" + u.getDate().getMonthValue() + "-" + u.getDate().getYear())
 				.replace("#email", u.getEmail())
 				.replace("#password", u.getPassword())
 				.replace("#adm", u.isAdmin() + "");
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean update(User u) {
-		Database db = new Database();
-		String SQL = "UPDATE User SET name = '#name', lastname = '#lastname', cpf = '#cpf', "
-				+ "date = '#date', email = '#email', password = '#password', admin = #adm "
+		Database db = Database.getInstance();
+		String SQL = "UPDATE public.\"user\" SET name = '#name', lastname = '#lastname', cpf = '#cpf', "
+				+ "date = '#date', email = '#email', password = '#password', admin = '#adm' "
 				+ "WHERE id = " + u.getId();
 		SQL = SQL.replace("#name", u.getName())
 				.replace("#lastname", u.getLastname())
 				.replace("#cpf", u.getCpf())
-				.replace("#data", u.getDate().toString())
+				.replace("#date", u.getDate().toString())
 				.replace("#email", u.getEmail())
 				.replace("#password", u.getPassword())
 				.replace("#adm", u.isAdmin() + "");
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean delete(int id) {
-		Database db = new Database();
-		String SQL = "DELETE FROM User WHERE id = " + id;
+		Database db = Database.getInstance();
+		String SQL = "DELETE FROM public.\"user\" WHERE id = " + id;
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static List<User> get(String filter) {
 		List<User> users = new ArrayList<User>();
-		String SQL = "SELECT * FROM User";
+		String SQL = "SELECT * FROM public.\"user\"";
 		if(!filter.isEmpty())
 			SQL += " WHERE " + filter;
-		Database db = new Database();
+		SQL += " ORDER BY id";
+		System.out.println(SQL);
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			while(rs.next()) {
@@ -64,7 +63,7 @@ public class DBUser {
 						rs.getString("name"),
 						rs.getString("lastname"),
 						rs.getString("cpf"),
-						rs.getDate("date"),
+						rs.getDate("date").toLocalDate(),
 						rs.getString("email"),
 						rs.getString("password"),
 						rs.getBoolean("admin")));
@@ -80,8 +79,8 @@ public class DBUser {
 	
 	public static User get(int id) {
 		User user = null;
-		String SQL = "SELECT * FROM User WHERE id = " + id;
-		Database db = new Database();
+		String SQL = "SELECT * FROM public.\"user\" WHERE id = " + id;
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			if(rs.next()) {
@@ -89,7 +88,7 @@ public class DBUser {
 						rs.getString("name"),
 						rs.getString("lastname"),
 						rs.getString("cpf"),
-						rs.getDate("date"),
+						rs.getDate("date").toLocalDate(),
 						rs.getString("email"),
 						rs.getString("password"),
 						rs.getBoolean("admin"));
@@ -103,22 +102,19 @@ public class DBUser {
 		return user;
 	}
 	
-	public static User checkLogin(String name, String pass) {
+	public static User checkLogin(String email, String pass) {
 		User user = null;
-		Crypto c = new Crypto(Session.KEY);
-		c.encrypt(pass);
-		String password = c.getEncrypted();
-		String SQL = "SELECT * FROM User WHERE name = '" + name 
-				+ "' AND password = '" + password + "'";
-		Database db = new Database();
+		String SQL = "SELECT * FROM public.\"user\" WHERE email = '" + email 
+				+ "' AND password = '" + pass + "'";
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
-			if(rs.next()) {
+			if(rs != null && rs.next()) {
 				user = new User(rs.getInt("id"),
 						rs.getString("name"),
 						rs.getString("lastname"),
 						rs.getString("cpf"),
-						rs.getDate("date"),
+						rs.getDate("date").toLocalDate(),
 						rs.getString("email"),
 						rs.getString("password"),
 						rs.getBoolean("admin"));

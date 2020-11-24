@@ -10,30 +10,27 @@ import com.warn.main.model.Organ;
 public class DBOrgan {
 	
 	public static boolean insert(Organ organ) {
-		Database db = new Database();
-		String SQL = "INSERT INTO Organ (name, description) VALUE ('#name', '#desc')";
+		Database db = Database.getInstance();
+		String SQL = "INSERT INTO Organ (name, description) VALUES ('#name', '#desc')";
 		SQL = SQL.replace("#name", organ.getName())
 				.replace("#desc", organ.getDescription());
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean update(Organ organ) {
-		Database db = new Database();
+		Database db = Database.getInstance();
 		String SQL = "UPDATE Organ SET name = '#name', description = '#desc' WHERE id = " + organ.getId();
 		SQL = SQL.replace("#name", organ.getName())
 				.replace("#desc", organ.getDescription());
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
 	public static boolean delete(int id) {
-		Database db = new Database();
+		Database db = Database.getInstance();
 		String SQL = "DELETE FROM Organ WHERE id = " + id;
 		boolean result = db.executeNonQuery(SQL);
-		db.disconnect();
 		return result;
 	}
 	
@@ -42,7 +39,8 @@ public class DBOrgan {
 		String SQL = "SELECT * FROM Organ";
 		if(!filter.isEmpty())
 			SQL += " WHERE " + filter;
-		Database db = new Database();
+		SQL += " ORDER BY id";
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			while(rs.next()) {
@@ -63,7 +61,7 @@ public class DBOrgan {
 	public static Organ get(int id) {
 		Organ organ = null;
 		String SQL = "SELECT * FROM Organ WHERE id = " + id;
-		Database db = new Database();
+		Database db = Database.getInstance();
 		ResultSet rs = db.executeQuery(SQL);
 		try {
 			if(rs.next()) {
