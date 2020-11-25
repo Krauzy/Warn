@@ -17,7 +17,7 @@ public class DBUser {
 		SQL = SQL.replace("#name", u.getName())
 				.replace("#lastname", u.getLastname())
 				.replace("#cpf", u.getCpf())
-				.replace("#date", u.getDate().getDayOfMonth() + "-" + u.getDate().getMonthValue() + "-" + u.getDate().getYear())
+				.replace("#date", u.getDate().getYear() + "-" + u.getDate().getMonthValue() + "-" + u.getDate().getDayOfMonth())
 				.replace("#email", u.getEmail())
 				.replace("#password", u.getPassword())
 				.replace("#adm", u.isAdmin() + "");
