@@ -104,7 +104,7 @@ public class API {
 		User user = DBUser.get(Integer.parseInt(userid));
 		Organ organ = DBOrgan.get(Integer.parseInt(organid));
 		Problem type = DBProblem.get(Integer.parseInt(typeid));
-		if(cep != null)
+		if(cep == null)
 			cep = "";
 		Warning war = new Warning(title, desc, Integer.parseInt(level), user, organ, type, 
 				street, dist, Integer.parseInt(number), cep, city, state);

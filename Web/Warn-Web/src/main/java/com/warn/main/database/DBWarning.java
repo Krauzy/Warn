@@ -11,16 +11,17 @@ public class DBWarning {
 	public static boolean insert(Warning w) {
 		Database db = Database.getInstance();
 		String SQL = "INSERT INTO Warning (title, description, level, date, "
-				+ "street, district, number, city, state, user, organ, type) "
+				+ "street, district, number, cep, city, state, \"user\", organ, type) "
 				+ "VALUES ('#title', '#desc', #level, '#date', '#street', "
-				+ "'#district', #number, '#city', '#state', #user, #organ, #type)";
+				+ "'#district', #number, '#cep', '#city', '#state', #user, #organ, #type)";
 		SQL = SQL.replace("#title", w.getTitle())
 				.replace("#desc", w.getDescription())
 				.replace("#level", w.getLevel() + "")
-				.replace("#date", w.getDate().getDayOfMonth() + "-" + w.getDate().getMonthValue() + "-" + w.getDate().getYear())
+				.replace("#date", w.getDate().getYear() + "-" + w.getDate().getMonthValue() + "-" + w.getDate().getDayOfMonth())
 				.replace("#street", w.getStreet())
 				.replace("#district", w.getDescription())
 				.replace("#number", w.getNumber() + "")
+				.replace("#cep", w.getCep())
 				.replace("#city", w.getCity())
 				.replace("#state", w.getState())
 				.replace("#user", w.getUser().getId() + "")

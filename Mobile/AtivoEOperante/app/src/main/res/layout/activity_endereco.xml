@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnEfe"
+        android:layout_width="159dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="@color/colorPrimary"
+        android:text="Efetuar Denuncia"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="213dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text="Informe o endereço da denuncia"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtEndereco"
+        android:layout_width="313dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Endereço"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/txrBai"
+        android:layout_width="200dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Bairro"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtNumb"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco" />
+
+    <EditText
+        android:id="@+id/txtCid"
+        android:layout_width="323dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Cidade"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.215"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txrBai" />
+
+    <EditText
+        android:id="@+id/txtUF"
+        android:layout_width="82dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="68dp"
+        android:ems="10"
+        android:hint="UF"
+        android:inputType="textPersonName"
+        android:maxLength="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toEndOf="@+id/txtCEP"
+        app:layout_constraintTop_toBottomOf="@+id/txrBai" />
+
+    <EditText
+        android:id="@+id/txtNumb"
+        android:layout_width="122dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Numero"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco" />
+
+    <EditText
+        android:id="@+id/txtCEP"
+        android:layout_width="198dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="CEP"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCid" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

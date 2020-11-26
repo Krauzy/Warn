@@ -1,10 +1,7 @@
 package com.warn.main.routes;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
