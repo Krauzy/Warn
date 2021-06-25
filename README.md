@@ -1,7 +1,5 @@
 # Warn
 
-[![Build|Passing](https://github.com/Krauzy/Warn/blob/main/gitres/build.svg)](https://github.com/Krauzy/Warn/)
-
 Powered by:
 
 [![Spring](https://github.com/Krauzy/Warn/blob/main/gitres/spring.png)](https://spring.io/)
